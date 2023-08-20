@@ -41,14 +41,8 @@ import numpy as np
 import pandas as pd
 from collections import defaultdict
 
-# For nice loopss
-from tqdm import tqdm
-
 # For profiling
 import time
-
-import pickle
-import sys
 import os
 import re
 
@@ -118,39 +112,37 @@ def renumber_pdb_glycans(file_name, wd, prefix, chain_names=None, type_names=[],
 
 def get_struct(file_name):
     parser = PDB.PDBParser()
-    io = PDB.PDBIO()
     struct = parser.get_structure('test_1', file_name)
     return struct
 
 
-def get_atoms_data(file_name, chain_names=None, type_names=[], by="chain", surface_set=None):
+def get_atoms_data(file_name, type_names, surface_set=None):
     atoms_data = []
 
-    # Glycan and protein sets will be selected by entire chains
-    if by == "chain":
+    # Glycan and protein sets will be selected by residue name, line by line
 
-        with open(file_name, "r") as f:
-            lines = f.readlines()
+    with open(file_name, "r") as f:
+        lines = f.readlines()
 
-        for line in lines:
+    for line in lines:
+
+        resname = line[17:21].strip()
+
+        if resname in type_names:
 
             chain = line[21].strip()
+            resid = line[22:28].strip()
+            atomtype = line[12:16].strip()
+            try:
+                x = float(line[30:38].strip())
+                y = float(line[38:46].strip())
+                z = float(line[46:54].strip())
+            except:
+                continue
 
-            if chain in chain_names:
+            key = chain, resname, resid
 
-                resname = line[17:21].strip()
-                resid = line[22:28].strip()
-                atomnum = line[6:11].strip()
-                atomtype = line[12:16].strip()
-
-                try:
-                    x = float(line[30:38].strip())
-                    y = float(line[38:46].strip())
-                    z = float(line[46:54].strip())
-                except:
-                    continue
-
-                key = chain, resname, resid
+            if (surface_set is None) or (surface_set is not None and key in surface_set):
 
                 if "H" not in atomtype:
                     # Get atom coordinates
@@ -161,43 +153,6 @@ def get_atoms_data(file_name, chain_names=None, type_names=[], by="chain", surfa
 
                     # Append data
                     atoms_data.append((coords, atom_id))
-
-    # Glycan and protein sets will be selected by residue name, line by line
-    if by == "type":
-
-        with open(file_name, "r") as f:
-            lines = f.readlines()
-
-        for line in lines:
-
-            resname = line[17:21].strip()
-
-            if resname in type_names:
-
-                chain = line[21].strip()
-                resid = line[22:28].strip()
-                atomnum = line[6:11].strip()
-                atomtype = line[12:16].strip()
-                try:
-                    x = float(line[30:38].strip())
-                    y = float(line[38:46].strip())
-                    z = float(line[46:54].strip())
-                except:
-                    continue
-
-                key = chain, resname, resid
-
-                if (surface_set is None) or (surface_set is not None and key in surface_set):
-
-                    if "H" not in atomtype:
-                        # Get atom coordinates
-                        coords = np.array([x, y, z], dtype=np.float32).reshape(3, )  # .astype(dtype=float32)
-
-                        # Create id for atom
-                        atom_id = "{}_{}_{}_{}".format(chain, resname, resid, atomtype)
-
-                        # Append data
-                        atoms_data.append((coords, atom_id))
 
     return np.array(atoms_data, dtype=object)
 
@@ -269,8 +224,8 @@ def apply_bfactor(df_res_counts, in_name, wd, out_file):
     with open(out_name, "w") as f:
         for line in lines:
             if line[0:4] == 'ATOM' or line[0:4] == 'HETA':
-                atomnum = line[6:11].strip()
-                atomtype = line[12:16].strip()
+                # atomnum = line[6:11].strip()
+                # atomtype = line[12:16].strip()
                 resname = line[17:21].strip()
                 chain = line[21].strip()
                 resid = line[22:28].strip()
@@ -348,13 +303,12 @@ def process_dataframes(all_results, ABS_data):
 
 
 ############################################
-################## Main ####################
+# ################ Main ################## #
 ############################################
 
 
-def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_method=None, glycan_chain_names=None,
-               protein_chain_names=None, protein_types=None, glycan_types=None, r=1, distance_cutoff=26,
-               surface_threshold=30, probe_radius=1.4, nproc=32, residue_list_file=None, module_type="all_atom"):
+def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=None, r=1.0, distance_cutoff=26.0,
+               surface_threshold=30.0, probe_radius=1.4, nproc=32, residue_list_file=None, module_type="all_atom"):
     log_file = wd + "/result/log.txt"
 
     print("Starting\n", flush=True)
@@ -365,15 +319,7 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
     start_time = time.perf_counter()
 
     ############################################
-    ########## User defined variables ##########
-    ############################################
-
-    # Allowed residues
-    protein_alphabet = ['ALA', 'ARG', 'ASN', 'ASP', 'CYS', 'GLN', 'GLU', 'GLY', 'HSD', 'HIS', 'HIE', 'HID', 'HSE',
-                        'HSP', 'ILE', 'LEU', 'LYS', 'MET', 'PHE', 'PRO', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
-
-    ############################################
-    ################# Main code ################
+    # ############### Main code ############## #
     ############################################
 
     out_file = os.path.basename(file_name).replace(".pdb", "")
@@ -393,7 +339,7 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
         print("Calculating surface residues.", flush=True)
         log(log_file, "Calculating surface residues.")
         surface_set, ABS_data = get_surface_keys(file_name, wd, out_file, fresasa_path, surface_threshold,
-                                                 protein_alphabet, probe_radius)
+                                                 protein_types, probe_radius)
 
         if len(surface_set) == 0:
             return None, None, "Surface set is empty"
@@ -403,7 +349,7 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
         print("Module sub")
         path_sub = wd + "/input/" + residue_list_file
         print(path_sub)
-        surface_set = get_subset(path_sub, protein_alphabet)
+        surface_set = get_subset(path_sub, protein_types)
         ABS_data = {}
 
         if len(surface_set) == 0:
@@ -417,16 +363,12 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
 
     print("\nExtracting glycan atoms.", flush=True)
     log(log_file, "Extracting glycan atoms.")
-    # glycan_data_list = get_atoms_data(struct, chain_names=glycan_chain_names, type_names=glycan_types, by=glycan_sel_method, surface_set=None)
     print("glycan_types", glycan_types)
-    glycan_data_list = get_atoms_data(file_name, chain_names=glycan_chain_names, type_names=glycan_types,
-                                      by=glycan_sel_method, surface_set=None)
+    glycan_data_list = get_atoms_data(file_name, type_names=glycan_types, surface_set=None)
 
     print("\nExtracting protein atoms.", flush=True)
     log(log_file, "Extracting protein atoms.")
-    # protein_data_list = get_atoms_data(struct, chain_names=protein_chain_names, type_names=protein_types, by=protein_sel_method, surface_set=surface_set)
-    protein_data_list = get_atoms_data(file_name, chain_names=protein_chain_names, type_names=protein_types,
-                                       by=protein_sel_method, surface_set=surface_set)
+    protein_data_list = get_atoms_data(file_name, type_names=protein_types, surface_set=surface_set)
 
     print("\nFound {} glycan heavy atoms.".format(len(glycan_data_list)), flush=True)
     print("Found {} protein heavy atoms with RSA > {}.".format(len(protein_data_list), surface_threshold), flush=True)
@@ -436,8 +378,7 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
 
     # Get protein heavy atoms that can be counted on cylinder collisions
     log(log_file, "Extracting collision atoms.")
-    protein_collision_data_list = get_atoms_data(file_name, chain_names=None, type_names=protein_alphabet, by="type",
-                                                 surface_set=None)
+    protein_collision_data_list = get_atoms_data(file_name, type_names=protein_types, surface_set=None)
 
     print("\nExtracted collision atoms.", flush=True)
 
@@ -460,7 +401,8 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
 
     # # Preprocess data to send to multiple CPUs # #
 
-    # Set the longest of {protein, glycan} lists to be the outter loop when generating pairs, and partition outter into sublists to send to multipel CPUs with full inner list
+    # Set the longest of {protein, glycan} lists to be the outter loop when generating pairs, and partition outter
+    # into sublists to send to multipel CPUs with full inner list
     if len(glycan_data_list) > len(protein_data_list):
         outter_data = glycan_data_list
         inner_data = protein_data_list
@@ -473,9 +415,9 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
     # Split calculations into multiple bundles
     bundle_outter_data = np.array_split(outter_data, bundle_num, axis=0)
 
-    set = "Glycan" if glycan_out else "Protein"
+    set_ = "Glycan" if glycan_out else "Protein"
     print("Each bundle has {} atoms from set={} to calculate. There are {} bundles.".format(
-        bundle_outter_data[0].shape[0], set, bundle_num), flush=True)
+        bundle_outter_data[0].shape[0], set_, bundle_num), flush=True)
 
     # Store results
     all_results = {}
@@ -515,77 +457,6 @@ def main_glyco(file_name, wd, fresasa_path, glycan_sel_method=None, protein_sel_
     end_time = time.perf_counter()
     log(log_file, "Done calculating. Time={}".format((end_time - start_time) / 3600, "hours."))
     print("Done. Execution time=", (end_time - start_time) / 3600, "hours.", flush=True)
-
-    return df_res_counts, duplicate_sum, non_duplicate_sum, struct, e_msg
-
-
-def glyco_starter(submission_data, file_name, fresasa_path, nproc):
-    wd = submission_data["working_folder"]
-
-    protein_alphabet = ['ALA', 'ARG', 'ASN', 'ASP', 'CYS', 'GLN', 'GLU', 'GLY', 'HSD', 'HIS', 'HIE', 'HID', 'HSE',
-                        'HSP', 'ILE', 'LEU', 'LYS', 'MET', 'PHE', 'PRO', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
-
-    module_type = submission_data["module_type"]
-
-    # Define selection method for glycan/protein atom sets
-    glycan_sel_method = submission_data["selection_type_g"]  # one of {"type", "chain"}
-    protein_sel_method = submission_data["selection_type_p"]  # one of {"type", "chain"}
-
-    if module_type == "subset":
-        # If subset, override selection method to default type (alphabet)
-        protein_sel_method = "type"
-
-    # Protein sel #
-    if protein_sel_method == "type":
-        protein_chain_names = None
-        protein_types = protein_alphabet
-
-    if protein_sel_method == "chain":
-        protein_chain_names = [x.strip() for x in submission_data["protein_chains"]]  # ["P"]
-        protein_types = None
-
-    # Glycan sel #
-    if glycan_sel_method == "type":
-        glycan_chain_names = None
-        glycan_types = [x.strip() for x in submission_data["glycan_names"]]
-
-    if glycan_sel_method == "chain":
-        glycan_chain_names = [x.strip() for x in submission_data["glycan_chains"]]  # ["G"]
-        glycan_types = None
-
-    # Cylinder radius
-    r = float(submission_data["cylinder_radius"])  # 1
-
-    # Maximum distance between two atoms
-    distance_cutoff = float(submission_data["distance_cutoff"])  # 26
-
-    # Minimum RSA
-    surface_threshold = float(submission_data["surface_threshold"])  # 60
-
-    # Probe radius
-    probe_radius = float(submission_data["probe_radius"])  # 1.4
-
-    # Save input params
-    param_file = wd + "/result/params_in.txt"
-    for k, v in submission_data.items():
-        if not "folder" in k:
-            log(param_file, str(k) + ": " + str(v))
-
-    df_res_counts, duplicate_sum, non_duplicate_sum, struct, e_msg = main_glyco(file_name, wd, fresasa_path,
-                                                                                glycan_sel_method=glycan_sel_method,
-                                                                                protein_sel_method=protein_sel_method,
-                                                                                glycan_chain_names=glycan_chain_names,
-                                                                                protein_chain_names=protein_chain_names,
-                                                                                protein_types=protein_types,
-                                                                                glycan_types=glycan_types, r=r,
-                                                                                distance_cutoff=distance_cutoff,
-                                                                                surface_threshold=surface_threshold,
-                                                                                probe_radius=probe_radius, nproc=nproc,
-                                                                                residue_list_file=submission_data[
-                                                                                    "residue_list_file"],
-                                                                                module_type=module_type)
-
-    print("Glyco_starter has finished", flush=True)
 
     return df_res_counts, duplicate_sum, non_duplicate_sum, struct, e_msg
 

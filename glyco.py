@@ -6,12 +6,12 @@ import shutil
 from Bio.PDB import PDBIO
 import argparse
 import glob
-from core_glyco import glyco_starter, apply_bfactor
+from core_glyco import main_glyco, apply_bfactor, log
 from utils import data_validator
 import multiprocessing
 
 #######################################
-############# USER INPUTS #############
+# ########### USER INPUTS ########### #
 #######################################
 
 # how to run:
@@ -24,6 +24,7 @@ parser.add_argument('-pdb', type=str, help='Enter your name of pdb. ex) input.pd
 parser.add_argument('-cutoff', type=float, help='Enter your distance cutoff for glycans in Angstrom. ex) 30',
                     default=23)
 parser.add_argument('-cyl_radius', type=float, help='Enter the cylinder radius', default=1.4)
+parser.add_argument('-probe_radius', type=float, help='BSA probe radius', default=1.4)
 parser.add_argument('-glycans', type=str,
                     help='Enter your name of glycans with comma "," for separators. ex) BMA,AMA,BGLN', required=True)
 parser.add_argument('-module', type=str, help='Enter your module name, either all_atom or subset. ex) all_atom',
@@ -51,16 +52,17 @@ else:
     in_folder = args.in_folder
     submission_data["pdb_files"] = list(glob.glob(os.path.join(in_folder, "*.pdb")))
 
-submission_data["selection_type_p"] = "type"
-submission_data["selection_type_g"] = "type"
-submission_data["glycan_chains"] = None
-submission_data["protein_chains"] = None
+protein_alphabet = ['ALA', 'ARG', 'ASN', 'ASP', 'CYS', 'GLN', 'GLU', 'GLY', 'HSD', 'HIS', 'HIE', 'HID', 'HSE',
+                    'HSP', 'ILE', 'LEU', 'LYS', 'MET', 'PHE', 'PRO', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
+
 submission_data["glycan_names"] = args.glycans
 submission_data["module_type"] = args.module
 submission_data["residue_list_file"] = args.residue
-submission_data["distance_cutoff"] = args.cutoff
-submission_data["cylinder_radius"] = args.cyl_radius
-submission_data["surface_threshold"] = args.sur_cutoff
+submission_data["distance_cutoff"] = float(args.cutoff)
+submission_data["cylinder_radius"] = float(args.cyl_radius)
+submission_data["surface_threshold"] = float(args.sur_cutoff)
+submission_data["protein_alphabet"] = protein_alphabet
+submission_data["probe_radius"] = float(args.probe_radius)
 fresasa_path = args.freesasa
 nproc = args.ncpu
 out_path = args.out_folder
@@ -71,9 +73,18 @@ submission_data["working_folder"] = out_path
 
 valid_submission, error_message_validation = data_validator(submission_data)
 
+# Save input params
+wd = submission_data["working_folder"]
+param_file = wd + "/result/params_in.txt"
+for k, v in submission_data.items():
+    if "folder" not in k:
+        log(param_file, str(k) + ": " + str(v))
+
 #######################################
-################ MAIN #################
+# ############## MAIN ############### #
 #######################################
+
+submission_data["glycan_names"] = [x.strip() for x in submission_data["glycan_names"]]
 
 if not valid_submission:
     print("Error: ", error_message_validation)
@@ -103,8 +114,12 @@ for idx, file_name in enumerate(pdb_files):
 
     print("About to start analysis for " + str(file_name), flush=True)
 
-    df_res_counts, duplicate_sum, non_duplicate_sum, struct, e_msg = glyco_starter(submission_data, file_name,
-                                                                                   fresasa_path, nproc)
+    res = main_glyco(file_name, wd, fresasa_path, protein_alphabet, submission_data["glycan_names"],
+                     submission_data["cylinder_radius"], submission_data["distance_cutoff"],
+                     submission_data["surface_threshold"], submission_data["probe_radius"], nproc,
+                     submission_data["residue_list_file"], submission_data["module_type"])
+
+    df_res_counts, duplicate_sum, non_duplicate_sum, struct, e_msg = res
 
     # Write pdb with bfactors
     out_file = os.path.basename(file_name).replace(".pdb", "")
