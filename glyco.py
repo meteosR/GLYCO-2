@@ -15,8 +15,7 @@ import multiprocessing
 #######################################
 
 # how to run:
-# python3 manual_run_argv.py -pdb frame_chain_16.pdb -glycans BGL,BMA,AMA -out_folder res1 -ncpu 16 -module all_atom
-# python3 manual_run_argv.py -glycans BMA,AMA,BGLN -module all_atom -ncpu 16 -in_folder input1 -out_folder res2 -average
+# python3 glyco.py -pdb glyco_examples/1_ebola_man5_frame_10__BGLN_BMAN_AMAN__23.pdb -glycans BGLN,BMAN,AMAN -out_folder res1 -ncpu 2 -module all_atom
 
 
 parser = argparse.ArgumentParser()
