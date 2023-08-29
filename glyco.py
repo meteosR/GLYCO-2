@@ -2,8 +2,6 @@ import pandas as pd
 import os
 import sys
 import pathlib
-import shutil
-from Bio.PDB import PDBIO
 import argparse
 import glob
 from core_glyco import main_glyco, apply_bfactor, log
@@ -15,7 +13,10 @@ import multiprocessing
 #######################################
 
 # how to run:
-# python3 glyco.py -pdb glyco_examples/1_ebola_man5_frame_10__BGLN_BMAN_AMAN__23.pdb -glycans BGLN,BMAN,AMAN -out_folder res1 -ncpu 2 -module all_atom
+# python3 glyco.py -pdb glyco_examples/1_ebola_man5_frame_10__BGLN_BMAN_AMAN__23.pdb -cutoff 23 -glycans BGLN,BMAN,AMAN -out_folder 1_ebola_man5_frame_10 -ncpu 12 -module all_atom
+# python3 glyco.py -pdb glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder 2_ha_man5_frame_10__BGL_BMA_AMA__23 -ncpu 12 -module all_atom
+# python3 glyco.py -in_folder /afs/csail.mit.edu/u/m/mreveiz/data_mnt_rgb/glyco/GLYCO-2/glyco_examples/small_md -cutoff 23 -sur_cutoff 70  -glycans BGL,BMA,AMA -out_folder debug -ncpu 32 -module all_atom -average
+
 
 
 parser = argparse.ArgumentParser()
@@ -68,20 +69,12 @@ out_path = args.out_folder
 pdb_files = submission_data["pdb_files"]
 average_pdbs = args.average
 
-submission_data["working_folder"] = out_path
+
+#######################################
+# ########### Validation ############ #
+#######################################
 
 valid_submission, error_message_validation = data_validator(submission_data)
-
-# Save input params
-wd = submission_data["working_folder"]
-param_file = wd + "/result/params_in.txt"
-for k, v in submission_data.items():
-    if "folder" not in k:
-        log(param_file, str(k) + ": " + str(v))
-
-#######################################
-# ############## MAIN ############### #
-#######################################
 
 submission_data["glycan_names"] = [x.strip() for x in submission_data["glycan_names"]]
 
@@ -107,6 +100,12 @@ else:
     print("Output folder '{}' was created.".format(out_path))
 
 ##############################################################
+
+# Save input params
+param_file = wd + "/result/params_in.txt"
+for k, v in submission_data.items():
+    if "folder" not in k:
+        log(param_file, str(k) + ": " + str(v))
 
 all_results_df = pd.DataFrame()
 for idx, file_name in enumerate(pdb_files):
@@ -137,9 +136,9 @@ for idx, file_name in enumerate(pdb_files):
 # Save averaged results
 print("Saving averaged results.", flush=True)
 if average_pdbs:
-    all_results_df_averaged = all_results_df.groupby(["Protein_ID"]).mean()[
-        ["Glycan_density", "SASA ABS"]].reset_index()
-    all_results_df_averaged.to_csv(out_path + "/result/final_df_averaged_{}.csv".format(out_file), sep=",")
+    all_results_df_averaged = all_results_df.groupby(["Protein_ID"])[
+        ["Glycan_density", "SASA ABS"]].mean().reset_index()
+    all_results_df_averaged.to_csv(out_path + "/result/final_df_averaged.csv", sep=",")
 
 print("Done processing!", flush=True)
 

@@ -2,6 +2,6 @@ bio
 freesasa
 numpy
 pandas
-sklearn
+scikit-learn
 tqdm
 natsort

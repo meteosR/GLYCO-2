@@ -462,9 +462,8 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
 
 
 """
-
 conda create -n GLYCO python=3.8
 conda activate GLYCO
-python3 -m pip install Bio email_validator flask flask-bootstrap flask-mail flask-sqlalchemy flask-uuid flask-wtf freesasa numpy pandas requests sklearn tqdm apscheduler mysql-connector-python natsort
+pip install -r requirements.txt
 python3 -m pip install Cython && python3 setup.py build_ext --inplace
 """
