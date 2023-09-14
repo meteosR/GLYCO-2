@@ -5,7 +5,7 @@
 
 1. Download GLYCO-2 package 
 
-2. Install 
+2. Install GLYCO-2
        
        conda create -n GLYCO python=3.8
        conda activate GLYCO
