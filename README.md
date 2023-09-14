@@ -4,8 +4,7 @@
 
 ### How to install
 
-       ```
-       conda create -n GLYCO python=3.8
+       ```       conda create -n GLYCO python=3.8
        ```
 <br />
 conda activate GLYCO <br />
