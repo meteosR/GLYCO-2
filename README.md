@@ -2,7 +2,6 @@
 (A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
 
 ### How to install
-
        conda create -n GLYCO python=3.8
 
        conda activate GLYCO
