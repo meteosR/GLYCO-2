@@ -1,4 +1,5 @@
-## GLYcan COverage, version 2 (GLYCO-2:A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
+## GLYcan COverage, version 2 <br />
+(GLYCO-2:A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
 
 ### How to install
 
@@ -13,7 +14,7 @@
 
 ### How to run GLYCO-2.0
 * #### Step 1: Enter input pdb file(s)
-    Prepare your glycosylated protein pdb file and upload it. {# #}
+    Prepare your glycosylated protein pdb file and upload it.
 Make sure your pdb file does not contain water molecules if it comes from an MD simulation, for example. 
 This only increases the size of the file. 
 Also, make sure your pdb follows the standard format as defined here. GLYCO only recognizes lines starting with "ATOM" or "HETA".
