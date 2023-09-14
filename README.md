@@ -1,5 +1,5 @@
-## GLYcan COverage, version 2 <br />
-(GLYCO-2:A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
+## GLYCO-2 (GLYcan COverage, version 2) <br />
+(A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
 
 ### How to install
 
