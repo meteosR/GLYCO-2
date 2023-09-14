@@ -14,7 +14,7 @@
    
 4. Run GLYCO-2.0 <br />
         1) Prepare glycosylated protein pdb file(s) <br />
-              - Make sure your pdb file does not contain water molecules. This only increases the size of the file and makes process slow. <br />
+              - Make sure your pdb file does not contain water molecules. This only increases the filesize which makes process slow. <br />
               - Make sure your pdb follows the standard format of PDB.<br />
                             - GLYCO only recognizes atoms starting with "ATOM" or "HETA".<br />
                             - Each chain must have a different chain ID <br />
