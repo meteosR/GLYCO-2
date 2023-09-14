@@ -3,7 +3,7 @@
 
 ### How to run GLYCO-2
 
-1. Download GLYCO-2 package (MATEO, PLEASE REVIEW AND PARAPHRASE PROPER WORD THAN "PACKAGE")
+1. Download GLYCO-2 package 
 
 2. Install 
        
@@ -50,7 +50,7 @@ You can ignore this log in most cases.
     - Protein residue: The residue name (Example: ALA)
     - Protein residue position: The position of the residue (Example: 123B)
 
-### Example commands
+### Example commands (MATEO, PLEASE CORRECT BELOW EXAMPLES, THERE IS NO GLYCO_EXAMPLES..ETC ..  NO IDEA WHAT IT MEANS)
 
 Run glyco on the "glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb" file, with a distance cutoff of 23 and module type all_atom using 12 CPUs. The results will be saved on the 2_ha_man5_frame_10__BGL_BMA_AMA__23 folder.
 Look for BGL,BMA,AMA glycans.
