@@ -10,7 +10,7 @@
 
        pip install -r requirements.txt
 
-       python3 -m pip install Cython && python3 setup.py build_ext --inplace <br />
+       python3 -m pip install Cython && python3 setup.py build_ext --inplace
 
 
 ### How to run GLYCO-2.0
