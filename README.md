@@ -22,9 +22,8 @@
     * ##### How can I glycosylate proteins? (MATEO, PLEASE ADD REFERENCE PROPERLY)
     You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.<br /><br />
 
-       2) Select parameters<br />
-             
-  - If "subset" is selected, you should provide a list of protein residues of interest as an input.
+       2) Select parameters <br />
+             - If "subset" is selected, you should provide a list of protein residues of interest as an input.
   - If "All protein atoms" is selected, you should provide the Minimum RSA value in Å² to determine the surface residues.
   - Carefully check which glycan names are found on your pdb files (Example: BMA, AMA).
   - Distance cutoff parameter is generally determined by a histogram of the longest length of glycans (for example, distance between a carbon (C1) in a glycan bonded to nitrogen (ND2) in a protein) of the glycosylated protein. From histograms of Man-5 HIV-1, Influenza HA, Lassa, SARS-CoV-2 500 ns molecular dynamics simulations, the longest length of Man-5 glycan was determined to be 23 Å and 26 Å for Man-9. Users can freely alter the distance cutoff based on their structures.
