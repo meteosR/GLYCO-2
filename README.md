@@ -6,7 +6,7 @@
 1. Download GLYCO-2 package (MATEO, PLEASE REVIEW AND PARAPHRASE PROPER WORD THAN "PACKAGE")
 
 2. Install 
-
+       
        conda create -n GLYCO python=3.8
        conda activate GLYCO
        pip install -r requirements.txt
