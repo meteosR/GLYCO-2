@@ -1,16 +1,17 @@
 ## GLYCO-2 (GLYcan COverage, version 2) <br />
 (A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
 
+### How to run GLYCO-2
+
 1. Download GLYCO-2 package (MATEO, PLEASE REVIEW AND PARAPHRASE PROPER WORD THAN "PACKAGE")
 
-### How to install
+2. Install 
        conda create -n GLYCO python=3.8
        conda activate GLYCO
        pip install -r requirements.txt
        python3 -m pip install Cython && python3 setup.py build_ext --inplace
-
-
-### How to run GLYCO-2.0
+   
+4. Run GLYCO-2.0
 * #### Step 1: Enter input pdb file(s)
     Prepare your glycosylated protein pdb file and upload it.
 Make sure your pdb file does not contain water molecules if it comes from an MD simulation, for example. 
