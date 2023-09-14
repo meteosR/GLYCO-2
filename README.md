@@ -5,14 +5,11 @@
 ### How to install
 
        conda create -n GLYCO python=3.8
-       
-       
+
        conda activate GLYCO
-       
-       conda activate GLYCO <br />
-       
-       pip install -r requirements.txt <br />
-       
+
+       pip install -r requirements.txt
+
        python3 -m pip install Cython && python3 setup.py build_ext --inplace <br />
 
 
