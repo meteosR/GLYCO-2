@@ -22,7 +22,7 @@
     * ##### How can I glycosylate proteins? (MATEO, PLEASE ADD REFERENCE PROPERLY)
     You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.<br /><br />
 
-       2) Select parameters <br />
+       2) Define parameters <br />
 
 
              - If "subset" is selected, you should provide a list of protein residues of interest as an input.
