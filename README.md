@@ -6,6 +6,9 @@
 
        conda create -n GLYCO python=3.8
        
+       
+       conda activate GLYCO
+       
        conda activate GLYCO <br />
        
        pip install -r requirements.txt <br />
