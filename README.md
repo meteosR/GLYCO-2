@@ -12,7 +12,7 @@
        pip install -r requirements.txt
        python3 -m pip install Cython && python3 setup.py build_ext --inplace
    
-4. Run GLYCO-2.0 <br />
+4. Run GLYCO-2.0 <br /><br />
         1) Prepare glycosylated protein pdb file(s) <br />
               - Make sure your pdb file does not contain water molecules. This only increases the filesize which makes process slow. <br />
               - Make sure your pdb follows the standard format of PDB.<br />
@@ -20,9 +20,9 @@
                             - Each chain must have a different chain ID <br />
 
     * ##### How can I glycosylate proteins?
-    You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.
+    You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.<br />
 
-       2) Select parameters
+       2) Select parameters<br />
    
   - Module type is either "all_atom" or "subset".
   - Module "all_atom" calculates glycan coverage for all surface protein residues, and module "sub" calculates glycan coverage only for user input residues.
