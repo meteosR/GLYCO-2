@@ -22,7 +22,7 @@
     * ##### How can I glycosylate proteins?
     You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.<br />
 
-       2) Select parameters<br />
+        2) Select parameters<br />
    
   - Module type is either "all_atom" or "subset".
   - Module "all_atom" calculates glycan coverage for all surface protein residues, and module "sub" calculates glycan coverage only for user input residues.
