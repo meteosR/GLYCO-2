@@ -3,7 +3,8 @@
 
 ### How to install
        conda create -n GLYCO python=3.8
- Prepare your glycosylated protein pdb file and upload it.
+ 
+       
        conda activate GLYCO
 
        pip install -r requirements.txt
