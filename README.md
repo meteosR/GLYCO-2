@@ -12,7 +12,7 @@
        pip install -r requirements.txt
        python3 -m pip install Cython && python3 setup.py build_ext --inplace
    
-4. Run GLYCO-2.0
+4. Run GLYCO-2.0<br />
        - 1) Prepare glycosylated protein pdb file(s)
 - Make sure your pdb file does not contain water molecules if it comes from an MD simulation, for example. This only increases the size of the file. <br />
 - Make sure your pdb follows the standard format of PDB.<br />
