@@ -6,7 +6,6 @@
 
        conda create -n GLYCO python=3.8
        
-<br />
        conda activate GLYCO <br />
        pip install -r requirements.txt <br />
        python3 -m pip install Cython && python3 setup.py build_ext --inplace <br />
