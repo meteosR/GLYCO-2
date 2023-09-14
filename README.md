@@ -1,6 +1,8 @@
 ## GLYCO-2 (GLYcan COverage, version 2) <br />
 (A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
 
+1. Download GLYCO-2 package (MATEO, PLEASE REVIEW AND PARAPHRASE PROPER WORD THAN "PACKAGE")
+
 ### How to install
        conda create -n GLYCO python=3.8
        conda activate GLYCO
