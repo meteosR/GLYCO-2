@@ -13,12 +13,11 @@
        python3 -m pip install Cython && python3 setup.py build_ext --inplace
    
 4. Run GLYCO-2.0
-* #### Step 1: Enter input pdb file(s)
-    Prepare your glycosylated protein pdb file and upload it.
-Make sure your pdb file does not contain water molecules if it comes from an MD simulation, for example. 
-This only increases the size of the file. 
-Also, make sure your pdb follows the standard format as defined here. GLYCO only recognizes lines starting with "ATOM" or "HETA".
-Each chain must have a different chain ID (you should not have two Alanine 23 with the same chain, for example).
+* #### Step 1: Prepare glycosylated protein pdb file(s)
+- Make sure your pdb file does not contain water molecules if it comes from an MD simulation, for example. This only increases the size of the file. 
+- Make sure your pdb follows the standard format of PDB.
+  -- GLYCO only recognizes lines starting with "ATOM" or "HETA".
+  -- Each chain must have a different chain ID 
 
     * ##### How can I glycosylate proteins?
     You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.
