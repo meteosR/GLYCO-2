@@ -4,10 +4,13 @@
 
 ### How to install
 
-conda create -n GLYCO python=3.8 <br />
-conda activate GLYCO
-pip install -r requirements.txt
-python3 -m pip install Cython && python3 setup.py build_ext --inplace
+       ```
+       conda create -n GLYCO python=3.8 
+       ```
+<br />
+conda activate GLYCO <br />
+pip install -r requirements.txt <br />
+python3 -m pip install Cython && python3 setup.py build_ext --inplace <br />
 
 
 ### How to run GLYCO-2.0
@@ -26,7 +29,7 @@ Each chain must have a different chain ID (you should not have two Alanine 23 wi
   - Module "all_atom" calculates glycan coverage for all surface protein residues, and module "sub" calculates glycan coverage only for user input residues.
   - If "subset" is selected, you should provide a list of protein residues of interest as an input.
   - If "All protein atoms" is selected, you should provide the Minimum RSA value in Å² to determine the surface residues.
-  - Glycan residue names contains the glycan names to be considered, as a comma separated list (Example: BMA, AMA). Carefully check which glycan names are found on your pdb files otherwise the server will give you an error.
+  - Carefully check which glycan names are found on your pdb files (Example: BMA, AMA).
   - Distance cutoff parameter is generally determined by a histogram of the longest length of glycans (for example, distance between a carbon (C1) in a glycan bonded to nitrogen (ND2) in a protein) of the glycosylated protein. From histograms of Man-5 HIV-1, Influenza HA, Lassa, SARS-CoV-2 500 ns molecular dynamics simulations, the longest length of Man-5 glycan was determined to be 23 Å and 26 Å for Man-9. Users can freely alter the distance cutoff based on their structures.
   - Cylinder radius is set to 1.4 Å by default.
   - Since atomic radii of carbon, nitrogen, and oxygen are around 0.6 - 0.8 Å (GLYCO only considers non-hydrogen atom), we recommends cylinder radius to be twice the atomic radii Example: 1.2 or 1.6 Å.
