@@ -20,8 +20,7 @@
                             - Each chain must have a different chain ID <br />
 
     * ##### How can I glycosylate proteins? (MATEO, PLEASE ADD REFERENCE PROPERLY)
-    You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.<br />
-
+    You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.<br /><br />
 
         2) Select parameters<br />
              
