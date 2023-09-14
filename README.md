@@ -1,6 +1,4 @@
-# GLYCO-2
-
-## GLYcan COverage (A webserver to calcaulte glycan coverage of glysoylated proteins)
+## GLYcan COverage, version 2 (GLYCO-2:A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
 
 ### How to install
 
@@ -55,6 +53,7 @@ You can ignore this log in most cases.
 
 Run glyco on the "glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb" file, with a distance cutoff of 23 and module type all_atom using 12 CPUs. The results will be saved on the 2_ha_man5_frame_10__BGL_BMA_AMA__23 folder.
 Look for BGL,BMA,AMA glycans.
+
 python3 glyco.py -pdb glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder 2_ha_man5_frame_10__BGL_BMA_AMA__23 -ncpu 12 -module all_atom
 
 Run glyco on multiple files in an input folder /example/GLYCO-2/struct_input and average results. 
