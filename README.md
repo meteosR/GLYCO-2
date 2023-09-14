@@ -14,10 +14,10 @@
    
 4. Run GLYCO-2.0 <br />
         1) Prepare glycosylated protein pdb file(s) <br />
-- Make sure your pdb file does not contain water molecules if it comes from an MD simulation, for example. This only increases the size of the file. <br />
-- Make sure your pdb follows the standard format of PDB.<br />
-       - GLYCO only recognizes lines starting with "ATOM" or "HETA".<br />
-       - Each chain must have a different chain ID <br />
+       - Make sure your pdb file does not contain water molecules if it comes from an MD simulation, for example. This only increases the size of the file. <br />
+       - Make sure your pdb follows the standard format of PDB.<br />
+              - GLYCO only recognizes lines starting with "ATOM" or "HETA".<br />
+              - Each chain must have a different chain ID <br />
 
     * ##### How can I glycosylate proteins?
     You can build glycans on your protein with other servers/programs such as CHARMM-GUI Glycan Reader & Modeler (1,2,3,4) or Glycosylator (5) etc. GLYCO 2 does not build glycans.
