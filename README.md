@@ -24,7 +24,7 @@
     You can build glycans on your protein with other servers/programs such as [CHARMM-GUI Glycan Reader & Modeler](https://charmm-gui.org/?doc=input/glycan) or [Glycosylator](https://github.com/tlemmin/glycosylator) etc. GLYCO-2 does not build glycans.<br /><br />
         2) Arguments to enter <br />
         <img width="925" alt="image" src="https://github.com/meteosR/GLYCO-2/assets/32939217/68da2c2c-90aa-4b8b-9b0e-88d2cc103cce"><br />
-        please make sure you are in GLYCO environment
+      <br />  please make sure you are in GLYCO environment
        conda activate GLYCO
              - If "subset" is selected, you should provide a list of protein residues of interest as an input.
              - If "All protein atoms" is selected, you should provide the Minimum RSA value in Å² to determine the surface residues.
