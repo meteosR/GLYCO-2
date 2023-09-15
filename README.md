@@ -21,7 +21,7 @@
                             - Each chain must have a different chain ID <br />
 
     * ##### How can I glycosylate proteins? 
-    You can build glycans on your protein with other servers/programs such as [CHARMM-GUI Glycan Reader & Modeler] (https://charmm-gui.org/?doc=input/glycan) or [Glycosylator] (https://github.com/tlemmin/glycosylator) etc. GLYCO-2 does not build glycans.<br /><br />
+    You can build glycans on your protein with other servers/programs such as [CHARMM-GUI Glycan Reader & Modeler](https://charmm-gui.org/?doc=input/glycan) or [Glycosylator](https://github.com/tlemmin/glycosylator) etc. GLYCO-2 does not build glycans.<br /><br />
 
        2) Define parameters <br />
 
