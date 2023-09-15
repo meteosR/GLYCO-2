@@ -51,15 +51,14 @@ python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BG
 
 ### How to analyze output
 GLYCO-2 outputs two main output files and six accessory files:
-  1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column.
-  2) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:
-
-    - Protein_ID: The unique protein residue identifier used during the computation of glycan coverage.
-    - Glycans_atoms: The list of all the glycan atoms covering the given protein residue. The length of this list corresponds to the coverage
-    - Glycan_density: The glycan coverage of this protein residue
-    - Protein Chain: The chain of the residue (Example: A)
-    - Protein residue: The residue name (Example: ALA)
-    - Protein residue position: The position of the residue (Example: 123B)
+  1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column.<br />
+  2) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:<br />
+    - Protein_ID: The unique protein residue identifier used during the computation of glycan coverage.<br />
+    - Glycans_atoms: The list of all the glycan atoms covering the given protein residue. The length of this list corresponds to the coverage<br />
+    - Glycan_density: The glycan coverage of this protein residue<br />
+    - Protein Chain: The chain of the residue (Example: A)<br />
+    - Protein residue: The residue name (Example: ALA)<br />
+    - Protein residue position: The position of the residue (Example: 123B)<br />
 
 Download X_bfactor.pdb and open it through PyMOL (6). You can visualize glycan coverage on the protein surface with the command "spectrum b, white_black". Of course you can change the color as you wish.
   3) X.rsa: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
