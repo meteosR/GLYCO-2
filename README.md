@@ -7,8 +7,8 @@
 
 2. Install GLYCO-2
        
-       conda create -n GLYCO python=3.8
-       conda activate GLYCO
+       conda create -n GLYCO2 python=3.8
+       conda activate GLYCO2
        pip install -r requirements.txt
        python3 -m pip install Cython && python3 setup.py build_ext --inplace
    
@@ -26,7 +26,7 @@
         <img width="925" alt="image" src="https://github.com/meteosR/GLYCO-2/assets/32939217/68da2c2c-90aa-4b8b-9b0e-88d2cc103cce"><br />
       <br />  Please make sure you are in GLYCO environment<br />
       
-       conda activate GLYCO
+       conda activate GLYCO2
 
        Single PDB
 
