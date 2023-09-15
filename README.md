@@ -35,7 +35,7 @@
   - Surface area cutoff SASA (solvent accessible surface area) is normally set to 30 Å² to only select protein surface residues, but you are free to alter it. Probe radius is set to 1.4 Å by default.
 
 ### How to analyze output
-GLYCO 2.0 an output folder that includes four files:
+GLYCO-2 has an output folder that includes four files:
   1) X_bfactor.pdb: PDB containing the glycosylated structure and the glycan coverage for each atom in the b-factor column.
 Download X_bfactor.pdb and open it through PyMOL (6). You can visualize glycan coverage on the protein surface with the command "spectrum b, white_black". Of course you can change the color as you wish.
   2) X.rsa: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
