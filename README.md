@@ -25,7 +25,7 @@
         2) Arguments to enter <br />
         <img width="925" alt="image" src="https://github.com/meteosR/GLYCO-2/assets/32939217/68da2c2c-90aa-4b8b-9b0e-88d2cc103cce">
         please make sure you are in GLYCO environment
-              conda activate GLYCO
+       conda activate GLYCO
              - If "subset" is selected, you should provide a list of protein residues of interest as an input.
              - If "All protein atoms" is selected, you should provide the Minimum RSA value in Å² to determine the surface residues.
             - Carefully check which glycan names are found on your pdb files (Example: BMA, AMA).
