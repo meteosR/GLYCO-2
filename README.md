@@ -36,13 +36,13 @@
 
 ### How to analyze output
 GLYCO 2.0 an output folder that includes four files:
-  - X_bfactor.pdb: PDB containing the glycosylated structure and the glycan coverage for each atom in the b-factor column.
+  1) X_bfactor.pdb: PDB containing the glycosylated structure and the glycan coverage for each atom in the b-factor column.
 Download X_bfactor.pdb and open it through PyMOL (6). You can visualize glycan coverage on the protein surface with the command "spectrum b, white_black". Of course you can change the color as you wish.
-  - X.rsa: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
+  2) X.rsa: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
 However, does not directly relate to what you want
-  - log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help.
+  3) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help.
 You can ignore this log in most cases.
-  - X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:  
+  4) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:  
     - Protein_ID: The unique protein residue identifier used during the computation of glycan coverage.
     - Glycans_atoms: The list of all the glycan atoms covering the given protein residue. The length of this list corresponds to the coverage
     - Glycan_density: The glycan coverage of this protein residue
