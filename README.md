@@ -51,8 +51,11 @@ python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BG
 
 ### How to analyze output
 GLYCO-2 outputs two main output files and six accessory files:
-  1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column.<br />
-  2) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:<br />
+Main output:<br />
+  1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column. Please load it in PyMOL and visualize with a command<br />
+            spectrum b, white_green_black <br />
+            
+  3) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:<br />
     - Protein_ID: The unique protein residue identifier used during the computation of glycan coverage.<br />
     - Glycans_atoms: The list of all the glycan atoms covering the given protein residue. The length of this list corresponds to the coverage<br />
     - Glycan_density: The glycan coverage of this protein residue<br />
