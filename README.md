@@ -33,6 +33,16 @@
   - Cylinder radius is set to 1.4 Å by default.
   - Since atomic radii of carbon, nitrogen, and oxygen are around 0.6 - 0.8 Å (GLYCO only considers non-hydrogen atom), we recommends cylinder radius to be twice the atomic radii Example: 1.2 or 1.6 Å.
   - Surface area cutoff SASA (solvent accessible surface area) is normally set to 30 Å² to only select protein surface residues, but you are free to alter it. Probe radius is set to 1.4 Å by default.
+  - 
+### Example commands (MATEO, PLEASE CORRECT BELOW EXAMPLES, THERE IS NO GLYCO_EXAMPLES..ETC ..  NO IDEA WHAT IT MEANS)
+
+Run glyco on the "glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb" file, with a distance cutoff of 23 and module type all_atom using 12 CPUs. The results will be saved on the 2_ha_man5_frame_10__BGL_BMA_AMA__23 folder.
+Look for BGL,BMA,AMA glycans.
+
+python3 glyco.py -pdb glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder 2_ha_man5_frame_10__BGL_BMA_AMA__23 -ncpu 12 -module all_atom
+
+Run glyco on multiple files in an input folder /example/GLYCO-2/struct_input and average results. 
+python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BGL,BMA,AMA -out_folder debug -ncpu 32 -module all_atom -average 
 
 ### How to analyze output
 GLYCO-2 has an output folder that includes four files:
@@ -50,12 +60,4 @@ You can ignore this log in most cases.
     - Protein residue: The residue name (Example: ALA)
     - Protein residue position: The position of the residue (Example: 123B)
 
-### Example commands (MATEO, PLEASE CORRECT BELOW EXAMPLES, THERE IS NO GLYCO_EXAMPLES..ETC ..  NO IDEA WHAT IT MEANS)
 
-Run glyco on the "glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb" file, with a distance cutoff of 23 and module type all_atom using 12 CPUs. The results will be saved on the 2_ha_man5_frame_10__BGL_BMA_AMA__23 folder.
-Look for BGL,BMA,AMA glycans.
-
-python3 glyco.py -pdb glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder 2_ha_man5_frame_10__BGL_BMA_AMA__23 -ncpu 12 -module all_atom
-
-Run glyco on multiple files in an input folder /example/GLYCO-2/struct_input and average results. 
-python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BGL,BMA,AMA -out_folder debug -ncpu 32 -module all_atom -average 
