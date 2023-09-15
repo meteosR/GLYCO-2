@@ -50,14 +50,9 @@ Run glyco on multiple files in an input folder /example/GLYCO-2/struct_input and
 python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BGL,BMA,AMA -out_folder debug -ncpu 32 -module all_atom -average 
 
 ### How to analyze output
-GLYCO-2 has an output folder that includes four files:
-  1) X_bfactor.pdb: PDB containing the glycosylated structure and the glycan coverage for each atom in the b-factor column.
-Download X_bfactor.pdb and open it through PyMOL (6). You can visualize glycan coverage on the protein surface with the command "spectrum b, white_black". Of course you can change the color as you wish.
-  2) X.rsa: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
-However, does not directly relate to what you want
-  3) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help.
-You can ignore this log in most cases.
-  4) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:  
+GLYCO-2 outputs two main output files and six accessory files:
+  1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column.
+  2) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:  
     - Protein_ID: The unique protein residue identifier used during the computation of glycan coverage.
     - Glycans_atoms: The list of all the glycan atoms covering the given protein residue. The length of this list corresponds to the coverage
     - Glycan_density: The glycan coverage of this protein residue
@@ -65,4 +60,10 @@ You can ignore this log in most cases.
     - Protein residue: The residue name (Example: ALA)
     - Protein residue position: The position of the residue (Example: 123B)
 
+Download X_bfactor.pdb and open it through PyMOL (6). You can visualize glycan coverage on the protein surface with the command "spectrum b, white_black". Of course you can change the color as you wish.
+  3) X.rsa: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
+However, does not directly relate to what you want
+  4) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help.
+You can ignore this log in most cases.
+  5) 
 
