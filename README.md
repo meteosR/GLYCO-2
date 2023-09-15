@@ -27,7 +27,10 @@
       <br />  Please make sure you are in GLYCO environment<br />
       
        conda activate GLYCO
-   
+
+       Single PDB
+
+
              - If "subset" is selected, you should provide a list of protein residues of interest as an input.
              - If "All protein atoms" is selected, you should provide the Minimum RSA value in Å² to determine the surface residues.
             - Carefully check which glycan names are found on your pdb files (Example: BMA, AMA).
