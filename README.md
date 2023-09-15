@@ -22,7 +22,11 @@
 
     * ##### How can I glycosylate proteins? 
     You can build glycans on your protein with other servers/programs such as [CHARMM-GUI Glycan Reader & Modeler](https://charmm-gui.org/?doc=input/glycan) or [Glycosylator](https://github.com/tlemmin/glycosylator) etc. GLYCO-2 does not build glycans.<br /><br />
-
+     1) Prepare glycosylated protein pdb file(s) <br /> <br />
+              - Make sure your pdb file does not contain water molecules. This only increases the filesize which makes process slow. <br />
+              - Make sure your pdb follows the standard format of PDB.<br />
+                            - GLYCO only recognizes atoms starting with "ATOM" or "HETA".<br />
+                            - Each chain must have a different chain ID <br />
        2) Arguments to enter <br />
         <img width="925" alt="image" src="https://github.com/meteosR/GLYCO-2/assets/32939217/68da2c2c-90aa-4b8b-9b0e-88d2cc103cce">
 
