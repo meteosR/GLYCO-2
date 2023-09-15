@@ -1,4 +1,4 @@
-## GLYCO-2 (Version 2) <br />
+## GLYCO-2 (version 2) <br />
 (A tool to calcaulte glycan coverage of glysoylated proteins, version 2)
 
 ### How to run GLYCO-2
