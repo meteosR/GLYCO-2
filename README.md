@@ -13,7 +13,7 @@
        python3 -m pip install Cython && python3 setup.py build_ext --inplace
    
 4. Run GLYCO-2 <br />
-(How to run is pretty much the same as GLYCO (version 1) https://github.com/myungjinlee/GLYCO/blob/main/README.md) <br /> <br />
+(How to run is pretty much the same as [GLYCO]([https://pages.github.com/](https://github.com/myungjinlee/GLYCO/blob/main/README.md)) <br /> <br />
         1) Prepare glycosylated protein pdb file(s) <br /> <br />
               - Make sure your pdb file does not contain water molecules. This only increases the filesize which makes process slow. <br />
               - Make sure your pdb follows the standard format of PDB.<br />
