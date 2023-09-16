@@ -52,11 +52,11 @@ python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BG
 ### How to analyze output
 GLYCO-2 outputs two main output files and six accessory files:
 Main output:<br />
-  1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column. Please load it in PyMOL and visualize with a command<br />
+  1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column. Please load it in PyMOL and visualize with a command. Of course you can change the color as you wish.<br />
   
             spectrum b, white_green_black 
             
-  3) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:<br />
+  2) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:<br />
     - Protein_ID: The unique protein residue identifier used during the computation of glycan coverage.<br />
     - Glycans_atoms: The list of all the glycan atoms covering the given protein residue. The length of this list corresponds to the coverage<br />
     - Glycan_density: The glycan coverage of this protein residue<br />
@@ -64,10 +64,11 @@ Main output:<br />
     - Protein residue: The residue name (Example: ALA)<br />
     - Protein residue position: The position of the residue (Example: 123B)<br />
 
-Download X_bfactor.pdb and open it through PyMOL (6). You can visualize glycan coverage on the protein surface with the command "spectrum b, white_black". Of course you can change the color as you wish.
+Accessory files:<br />
   3) X.rsa: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
 However, does not directly relate to what you want
   4) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help.
 You can ignore this log in most cases.
-  5) 
+  5) glysums...
+  6) params_in.txt: The file contains input parameters that the user entered.
 
