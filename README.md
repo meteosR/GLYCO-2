@@ -51,6 +51,7 @@ python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BG
 
 ### How to analyze output
 GLYCO-2 outputs two main output files and six accessory files:<br />
+
 Main output:<br />
   1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column. Please load it in PyMOL and visualize with a command. Of course you can change the color as you wish.<br />
   
@@ -65,7 +66,6 @@ Main output:<br />
     - Protein residue position: The position of the residue (Example: 123B)<br />
 
 Accessory files:<br />
-
   3) X.csv: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
 However, does not directly relate to what you want<br />
   4) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help. It also shows time spent for calculation at the end of the file.<br />
