@@ -51,6 +51,7 @@ python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BG
 
 ### How to analyze output
 GLYCO-2 outputs two main output files and six accessory files:<br />
+
 Main output:<br />
   1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column. Please load it in PyMOL and visualize with a command. Of course you can change the color as you wish.<br />
   
