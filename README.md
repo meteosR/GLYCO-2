@@ -34,7 +34,7 @@
              - If "subset" is selected, you should provide a list of protein residues of interest as an input.
              - If "All protein atoms" is selected, you should provide the Minimum RSA value in Å² to determine the surface residues.
             - Carefully check which glycan names are found on your pdb files (Example: BMA, AMA).
-  - Distance cutoff parameter could be determined by a histogram of the length of glycans (for example, distance between a carbon (C1) in a glycan bonded to nitrogen (ND2) in a protein) of the glycosylated protein. From histograms of Man-5 HIV-1, Influenza HA, Lassa, SARS-CoV-2 500 ns molecular dynamics simulations, the longest length of Man-5 glycan was determined to be 23 Å with averege 17 Å. Users can freely alter the distance cutoff based on their structures.
+  - Distance cutoff parameter could be determined by a histogram of the length of glycans (for example, distance between a carbon (C1) in a glycan bonded to nitrogen (ND2) in a protein) of the glycosylated protein. From histograms of Man-5 HIV-1, Influenza HA, Lassa, SARS-CoV-2 500 ns molecular dynamics simulations, the longest length of the Man-5 glycan was determined to be 23 Å, with the most frequent length being 17 Å. Users can freely alter the distance cutoff based on their structures.
   - Cylinder radius is set to 1.4 Å by default.
   - Since atomic radii of carbon, nitrogen, and oxygen are around 0.6 - 0.8 Å (GLYCO only considers non-hydrogen atom), we recommends cylinder radius to be twice the atomic radii Example: 1.2 or 1.6 Å.
   - Surface area cutoff SASA (solvent accessible surface area) is normally set to 30 Å² to only select protein surface residues, but you are free to alter it. Probe radius is set to 1.4 Å by default.
