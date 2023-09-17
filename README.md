@@ -65,7 +65,7 @@ Main output:<br />
     - Protein residue position: The position of the residue (Example: 123B)<br />
 
 Accessory files:<br />
-  3) X.csv: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
+  3 X.csv: output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
 However, does not directly relate to what you want<br />
   4) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help. It also shows time spent for calculation at the end of the file.<br />
   5) glysums...<br />
