@@ -50,7 +50,7 @@ Run glyco on multiple files in an input folder /example/GLYCO-2/struct_input and
 python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BGL,BMA,AMA -out_folder debug -ncpu 32 -module all_atom -average 
 
 ### How to analyze output
-GLYCO-2 outputs two main output files and six accessory files:<br />
+GLYCO-2 outputs two main output files and six accessory files:<br /><br />
 
 Main output:<br />
   1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column. Please load it in PyMOL and visualize with a command. Of course you can change the color as you wish.<br />
