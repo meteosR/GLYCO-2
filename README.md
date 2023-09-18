@@ -3,7 +3,7 @@
 
 ### How to run GLYCO-2
 
-1. Go to "Click" and "Download zip file"
+1. Download zip file from "Code"
 
 2. Install GLYCO-2
        
