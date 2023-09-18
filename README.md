@@ -61,6 +61,6 @@ However, does not directly relate to what you want<br />
 
   5) params_in.txt: The file contains input parameters that the user entered.<br />
   
-  6)log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help. It also shows time spent for calculation at the end of the file.<br />
+  6) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help. It also shows time spent for calculation at the end of the file.<br />
 
 
