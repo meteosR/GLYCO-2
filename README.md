@@ -28,15 +28,12 @@
       
        conda activate GLYCO2
 
-### Example commands (MATEO, PLEASE CORRECT BELOW EXAMPLES, THERE IS NO GLYCO_EXAMPLES..ETC ..  NO IDEA WHAT IT MEANS)
+### Example commands 
+       Single PDB
+       python3 glyco.py -pdb FILENAME.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder FILENAME -ncpu 12 -module all_atom
 
-Run glyco on the "glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb" file, with a distance cutoff of 23 and module type all_atom using 12 CPUs. The results will be saved on the 2_ha_man5_frame_10__BGL_BMA_AMA__23 folder.
-Look for BGL,BMA,AMA glycans.
-
-python3 glyco.py -pdb glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder 2_ha_man5_frame_10__BGL_BMA_AMA__23 -ncpu 12 -module all_atom
-
-Run glyco on multiple files in an input folder /example/GLYCO-2/struct_input and average results. 
-python3 glyco.py -in_folder /example/GLYCO-2/struct_input -cutoff 23 -glycans BGL,BMA,AMA -out_folder debug -ncpu 32 -module all_atom -average 
+       Multiple PDBs
+       python3 glyco.py -in_folder FOLDERNAME -cutoff 23 -glycans BGL,BMA,AMA -out_folder OUT_FOLDERNAME -ncpu 32 -module all_atom -average 
 
 ### How to analyze output
 GLYCO-2 outputs two main output files and six accessory files:<br /><br />
