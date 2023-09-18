@@ -30,11 +30,11 @@
 
 ### Example commands 
 Single PDB<br />
-       
+
        python3 glyco.py -pdb FILENAME.pdb -module all_atom -cutoff 23 -glycans BGL,BMA,AMA -ncpu 12 -out_folder FILENAME 
        
 Multiple PDBs<br />
-       
+
        python3 glyco.py -in_folder FOLDERNAME -module all_atom -cutoff 23 -glycans BGL,BMA,AMA -ncpu 12 -out_folder OUT_FOLDERNAME -average 
 ### How to analyze output
 GLYCO-2 outputs two main output files and six accessory files:<br /><br />
