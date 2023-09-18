@@ -31,6 +31,7 @@
 ### Example commands 
 Single PDB<br />
        python3 glyco.py -pdb FILENAME.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder FILENAME -ncpu 12 -module all_atom
+       
 Multiple PDBs<br />
        python3 glyco.py -in_folder FOLDERNAME -cutoff 23 -glycans BGL,BMA,AMA -out_folder OUT_FOLDERNAME -ncpu 32 -module all_atom -average 
 ### How to analyze output
