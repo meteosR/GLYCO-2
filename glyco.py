@@ -102,7 +102,7 @@ else:
 ##############################################################
 
 # Save input params
-param_file = wd + "/result/params_in.txt"
+param_file = wd + "/params_in.txt"
 for k, v in submission_data.items():
     if "folder" not in k:
         log(param_file, str(k) + ": " + str(v))
@@ -121,7 +121,7 @@ for idx, file_name in enumerate(pdb_files):
 
     # Write pdb with bfactors
     out_file = os.path.basename(file_name).replace(".pdb", "")
-    df_res_counts.to_csv(out_path + "/result/final_df_{}.csv".format(out_file), sep=",")  # new
+    df_res_counts.to_csv(out_path + "/result/final_df_{}.csv".format(out_file), sep=",", index=False)  # new
     apply_bfactor(df_res_counts, file_name, wd, out_file)
     print("Finished apply_bfactor", flush=True)
 
@@ -138,7 +138,7 @@ print("Saving averaged results.", flush=True)
 if average_pdbs:
     all_results_df_averaged = all_results_df.groupby(["Protein_ID"])[
         ["Glycan_density", "SASA ABS"]].mean().reset_index()
-    all_results_df_averaged.to_csv(out_path + "/result/final_df_averaged.csv", sep=",")
+    all_results_df_averaged.to_csv(out_path + "/result/final_df_averaged.csv", sep=",", index=False)
 
 print("Done processing!", flush=True)
 

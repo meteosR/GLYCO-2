@@ -186,6 +186,9 @@ def get_surface_keys(file_name, wd, prefix, fresasa_path, surface_threshold, pro
             except:
                 pass
 
+    if os.path.isfile(outrsa):
+        os.remove(outrsa)
+
     return set(surface_set), ABS_data
 
 
@@ -288,7 +291,7 @@ def process_dataframes(all_results, ABS_data):
 
     final_df["SASA ABS"] = final_df["Protein_ID"].apply(lambda key: ABS_data[key] if key in ABS_data else np.nan)
 
-    final_df = final_df.drop("Glycans_atoms", axis=1)
+    final_df = final_df.drop("Glycans_atoms", axis=1)[["Protein Chain", "Protein residue position", "Protein residue", "Glycan_density", "SASA ABS"]]
 
     # final_df = final_df.sort_values(["Protein Chain", "Protein residue position"])
 
@@ -309,7 +312,7 @@ def process_dataframes(all_results, ABS_data):
 
 def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=None, r=1.0, distance_cutoff=26.0,
                surface_threshold=30.0, probe_radius=1.4, nproc=32, residue_list_file=None, module_type="all_atom"):
-    log_file = wd + "/result/log.txt"
+    log_file = wd + "/log.txt"
 
     print("Starting\n", flush=True)
     log(log_file, "Started main_glyco")
@@ -454,8 +457,12 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
     log(log_file, "Processing dataframes.")
     df_res_counts, duplicate_sum, non_duplicate_sum = process_dataframes(all_results, ABS_data)
 
+    # Cleanup
+    if os.path.isfile(file_name):
+        os.remove(file_name)
+
     end_time = time.perf_counter()
-    log(log_file, "Done calculating. Time={}".format((end_time - start_time) / 3600, "hours."))
+    log(log_file, "Done calculating. Time={} min.".format(round((end_time - start_time) / 60, 2)))
     print("Done. Execution time=", (end_time - start_time) / 3600, "hours.", flush=True)
 
     return df_res_counts, duplicate_sum, non_duplicate_sum, struct, e_msg
