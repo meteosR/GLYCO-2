@@ -54,8 +54,8 @@ Main outputs in result folder:<br />
     - SASA ABS: Solvent accessible surface area from FreeSASA of the residue<br />
 
   3) glysums_X.txt: <br />
-    - first line: Sum of glycan density
-    - second line: Sum of glycan density excluding any overlaps
+    - First line: Sum of glycan density<br />
+    - Second line: Sum of glycan density excluding any overlaps<br />
   
 Accessory files:<br />
 
