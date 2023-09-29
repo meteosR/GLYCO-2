@@ -38,29 +38,28 @@ Multiple PDBs<br />
        python3 glyco.py -in_folder FOLDERNAME -module all_atom -cutoff 23 -glycans BGL,BMA,AMA -ncpu 12 -out_folder OUT_FOLDERNAME -average
 
 ### How to analyze output
-GLYCO-2 outputs two main output files and six accessory files:<br /><br />
-Main output:<br />
+GLYCO-2 outputs three main output files and two accessory files:<br /><br />
+Main outputs in result folder:<br />
+
   1) X_bfactor.pdb: input PDB with the glycan coverage for each atom in the b-factor column. Please load it in PyMOL and visualize with a command. Of course you can change the color as you wish.<br />
   
             spectrum b, white_green_black 
             
   2) X.csv: Ths file contains the quantified glycan coverage for each protein residue. The file contains the following columns:<br />
-    - Protein_ID: The unique protein residue identifier used during the computation of glycan coverage.<br />
-    - Glycans_atoms: The list of all the glycan atoms covering the given protein residue. The length of this list corresponds to the coverage<br />
-    - Glycan_density: The glycan coverage of this protein residue<br />
-    - Protein Chain: The chain of the residue (Example: A)<br />
-    - Protein residue: The residue name (Example: ALA)<br />
-    - Protein residue position: The position of the residue (Example: 123B)<br />
+    - Chain: ChainID<br />
+    - ResNum: Residue number <br />
+    - ResName: Residue name <br />
+    - Glycan_density: The glycan coverage of the protein residue<br />
+    - SASA ABS: Solvent accessible surface area from FreeSASA of the residue<br />
 
+  3) glysums_X.txt: <br />
+    - first line: Sum of glycan density
+    - second line: Sum of glycan density excluding any overlaps
+  
 Accessory files:<br />
 
-  3) glysums_X.txt: (MR to add description of two numbers) <br />
+  4) params_in.txt: The file contains input parameters that the user entered.<br />
   
-  4) X.rsa:output file after running FreeSASA. This file contains information about which residues were determined to be in the surface.
-However, does not directly relate to what you want<br />
-
-  5) params_in.txt: The file contains input parameters that the user entered.<br />
-  
-  6) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help. It also shows time spent for calculation at the end of the file.<br />
+  5) log.txt: A internal log with the computation steps. If you encounter errors, you can email us this log with questions for additional help. It also shows time spent for calculation at the end of the file.<br />
 
 
