@@ -26,7 +26,7 @@
         3) Arguments to enter <br />
         <img width="925" alt="image" src="https://github.com/meteosR/GLYCO-2/assets/32939217/68da2c2c-90aa-4b8b-9b0e-88d2cc103cce"><br />
       <br />
-   *Argument in green box is mandatory and white box is optional.<br /> 
+   *Argument in green box is mandatory and white box is optional.<br />     <br />
    Please make sure you are in GLYCO environment<br />
       
        conda activate GLYCO2
