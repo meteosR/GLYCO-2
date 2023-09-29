@@ -24,7 +24,8 @@
     You can build glycans on your protein with other servers/programs such as [CHARMM-GUI Glycan Reader & Modeler](https://charmm-gui.org/?doc=input/glycan) or [Glycosylator](https://github.com/tlemmin/glycosylator) etc. GLYCO-2 does not build glycans.<br /><br />
         2) Install FreeSASA(https://freesasa.github.io/) <br /><br />
         3) Arguments to enter <br />
-        <img width="925" alt="image" src="https://github.com/meteosR/GLYCO-2/assets/32939217/68da2c2c-90aa-4b8b-9b0e-88d2cc103cce"><br />
+     ![diagram](https://github.com/meteosR/GLYCO-2/assets/32939217/202b72f1-781c-4bc1-bd27-68dbf2662cb2)
+   <img width="925" alt="image" src="https://github.com/meteosR/GLYCO-2/assets/32939217/68da2c2c-90aa-4b8b-9b0e-88d2cc103cce"><br />
       <br />
    *Argument in green box is mandatory and white box is optional.<br />     <br />
    Please make sure you are in GLYCO environment<br />
