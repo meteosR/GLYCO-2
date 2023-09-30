@@ -36,7 +36,7 @@
 ### Example commands 
 Single PDB<br />
 
-       python3 glyco.py -pdb FILENAME.pdb -module all_atom -cutoff 23 -glycans BGL,BMA,AMA -ncpu NUM_CPU -out_folder FILENAME
+       python3 glyco.py -pdb FILENAME.pdb -module all_atom -freesasa FREESASA_PATH -cutoff 23 -glycans BGL,BMA,AMA -ncpu NUM_CPU -out_folder FILENAME
 
 Multiple PDBs with module "subset" to calculate predefined residues<br />
 
