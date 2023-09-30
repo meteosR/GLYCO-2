@@ -42,6 +42,13 @@ Multiple PDBs with module "subset" to calculate predefined residues<br />
 
        python3 glyco.py -in_folder FOLDERNAME -average -module subset -residue RESLIST.txt -cutoff 23 -glycans BGL,BMA,AMA -ncpu NUM_CPU -out_folder OUT_FOLDERNAME -average
 
+
+    *RESLIST.txt should be in the following format: residue name, chain ID, residue number
+    (residuelist.txt)
+    LEU  A  95
+    VAL  A  97
+    THR  A  98<br />
+    
 ### How to analyze output
 GLYCO-2 outputs three main output files and two accessory files:<br /><br />
 Main outputs in result folder:<br />
