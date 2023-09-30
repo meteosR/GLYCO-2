@@ -38,9 +38,9 @@ Single PDB<br />
 
        python3 glyco.py -pdb FILENAME.pdb -module all_atom -cutoff 23 -glycans BGL,BMA,AMA -ncpu NUM_CPU -out_folder FILENAME
 
-Multiple PDBs<br />
+Multiple PDBs with module "subset" to calculate predefined residues<br />
 
-       python3 glyco.py -in_folder FOLDERNAME -module all_atom -cutoff 23 -glycans BGL,BMA,AMA -ncpu NUM_CPU -out_folder OUT_FOLDERNAME -average
+       python3 glyco.py -in_folder FOLDERNAME -average -module subset -residue RESLIST.TXT -cutoff 23 -glycans BGL,BMA,AMA -ncpu NUM_CPU -out_folder OUT_FOLDERNAME -average
 
 ### How to analyze output
 GLYCO-2 outputs three main output files and two accessory files:<br /><br />
