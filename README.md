@@ -29,7 +29,7 @@
 
       <br />
    *Argument in green box is mandatory and white box is optional.<br />     <br />
-   Please make sure you are in GLYCO environment<br />
+   Please make sure you are in GLYCO2 environment<br />
       
        conda activate GLYCO2
 
