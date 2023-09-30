@@ -44,11 +44,7 @@ Multiple PDBs with module "subset" to calculate predefined residues<br />
 
     
     <br />
-    
-    
-    
-    
-           *RESLIST.txt should be in the following format: residue name, chain ID, residue number
+*RESLIST.txt should be in the following format: residue name, chain ID, residue number
     (residuelist.txt)
     LEU  A  95
     VAL  A  97
