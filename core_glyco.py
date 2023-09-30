@@ -350,7 +350,7 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
     elif module_type == "subset":
         log(log_file, "Getting subset")
         print("Module sub")
-        path_sub = wd + "/input/" + residue_list_file
+        path_sub = residue_list_file
         print(path_sub)
         surface_set = get_subset(path_sub, protein_types)
         ABS_data = {}
