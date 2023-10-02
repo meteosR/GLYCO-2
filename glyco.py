@@ -10,6 +10,7 @@ import multiprocessing
 from concurrent.futures import ProcessPoolExecutor as Pool_out
 import time
 import datetime
+from natsort import natsort_keygen
 
 #######################################
 # ########### USER INPUTS ########### #
@@ -129,7 +130,9 @@ def run_glyco(file_name, wd, fresasa_path, nproc, submission_data):
 
     # Write pdb with bfactors
     out_file = os.path.basename(file_name).replace(".pdb", "")
-    df_res_counts.to_csv(out_path + "/result/final_df_{}.csv".format(out_file), sep=",", index=False)  # new
+    tmp = df_res_counts.rename({"Protein Chain": "Chain", "Protein residue": "ResName",
+                                "Protein residue position": "ResNum", "SASA ABS": "SASA"}, axis=1)
+    tmp.to_csv(out_path + "/result/final_df_{}.csv".format(out_file), sep=",", index=False)  # new
     apply_bfactor(df_res_counts, file_name, wd, out_file, verbose)
     if verbose: print("Finished apply_bfactor", flush=True)
 
@@ -167,16 +170,18 @@ def main():
                 df["frame"] = idx
                 all_results_df = pd.concat((all_results_df, df), ignore_index=True)
 
-                all_results_df_averaged = \
-                all_results_df.groupby(["Protein Chain", "Protein residue", "Protein residue position"])[
-                    ["Glycan_density", "SASA ABS"]].mean().reset_index()
+                all_results_df_averaged = all_results_df.groupby(["Chain", "ResNum", "ResName"])[
+                    ["Glycan_density", "SASA"]].mean().reset_index().sort_values(
+                        by=["Chain", "ResNum"],
+                        key=natsort_keygen()
+                )
                 all_results_df_averaged.to_csv(out_path + "/result/final_df_averaged.csv", sep=",", index=False)
 
-    print("Done processing!", flush=True)
+    print("Done processing!", flush=True) 
 
 
 start = time.time()
 print("Starting glyco!")
 main()
 end = time.time()
-print('TIME SPENT: ', str(round(datetime.timedelta(seconds=end - start).total_seconds() / 60, 2))), " minutes."
+print('TIME SPENT: ', str(round(datetime.timedelta(seconds=end - start).total_seconds() / 60, 2)), " minutes.")
