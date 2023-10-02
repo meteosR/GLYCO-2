@@ -26,11 +26,9 @@
 
 
 # For pdb extraction
-from itertools import *
-from Bio import PDB, SeqIO, SeqUtils
+from Bio import PDB
 
 # For multiprocessing
-import multiprocessing
 from multiprocessing.pool import Pool
 
 from natsort import natsort_keygen
@@ -157,15 +155,15 @@ def get_atoms_data(file_name, type_names, surface_set=None):
     return np.array(atoms_data, dtype=object)
 
 
-def get_surface_keys(file_name, wd, prefix, fresasa_path, surface_threshold, protein_alphabet, probe_radius):
+def get_surface_keys(file_name, wd, prefix, fresasa_path, surface_threshold, protein_alphabet, probe_radius, verbose=True):
     ABS_data = defaultdict(float)
 
     # Run freesasa
-    print("Running freesasa", flush=True)
+    if verbose: print("Running freesasa", flush=True)
     outrsa = "{}/result/{}.rsa".format(wd, prefix)
     os.system("{} {} -w -p {} --rsa > {}".format(fresasa_path, file_name, probe_radius, outrsa))
 
-    print("{} {} -p 1.4 --rsa > {}".format(fresasa_path, file_name, outrsa), flush=True)
+    if verbose: print("{} {} -p 1.4 --rsa > {}".format(fresasa_path, file_name, outrsa), flush=True)
 
     # Read rsa output file
     regex = re.compile("RES\s+([A-Z]{3})\s+([A-Z])\s*([a-zA-Z]*\s*\d+\w*)\s*(\d*[.,]?\d*)\s*")
@@ -210,20 +208,20 @@ def get_subset(residue_list_file, protein_alphabet):
     return set(surface_set)
 
 
-def apply_bfactor(df_res_counts, in_name, wd, out_file):
+def apply_bfactor(df_res_counts, in_name, wd, out_file, verbose):
     # Make bfactor pdb
     bfactor_mapper = df_res_counts
     bfactor_mapper["protein_res_id"] = bfactor_mapper["Protein Chain"] + "_" + bfactor_mapper["Protein residue"] + "_" + \
                                        bfactor_mapper["Protein residue position"]
     bfactor_mapper = bfactor_mapper.set_index("protein_res_id")["Glycan_density"].to_dict()
-    print("Applying bfactor")
+    if verbose: print("Applying bfactor")
 
     with open(in_name, "r") as f:
         lines = f.readlines()
 
     out_name = "{}/result/{}".format(wd, out_file + "_bfactor.pdb")
 
-    print(out_name)
+    if verbose: print(out_name)
     with open(out_name, "w") as f:
         for line in lines:
             if line[0:4] == 'ATOM' or line[0:4] == 'HETA':
@@ -259,18 +257,18 @@ def merge_dict_lists(added_dict=None, inplace_dict=None, val_unique=True):
             inplace_dict[k] = v
 
 
-def process_dataframes(all_results, ABS_data):
+def process_dataframes(all_results, ABS_data, verbose=True):
     # Retrieve results from calls
-    print("\nCollecting results...", flush=True)
+    if verbose: print("\nCollecting results...", flush=True)
     all_results = {k: v.get() for k, v in all_results.items()}
 
-    print("\nMerging temp dicts...", flush=True)
+    if verbose:print("\nMerging temp dicts...", flush=True)
 
     final_dict = {}
     for final_dict_i in all_results.values():
         merge_dict_lists(added_dict=final_dict_i, inplace_dict=final_dict, val_unique=True)
 
-    print("Making dataframe...", flush=True)
+    if verbose:print("Making dataframe...", flush=True)
 
     final_df = defaultdict(list)
     all_v = []
@@ -300,7 +298,7 @@ def process_dataframes(all_results, ABS_data):
         key=natsort_keygen()
     )
 
-    print("\nFinished df processing...", flush=True)
+    if verbose:print("\nFinished df processing...", flush=True)
 
     return final_df, duplicate_sum, non_duplicate_sum
 
@@ -311,10 +309,10 @@ def process_dataframes(all_results, ABS_data):
 
 
 def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=None, r=1.0, distance_cutoff=26.0,
-               surface_threshold=30.0, probe_radius=1.4, nproc=32, residue_list_file=None, module_type="all_atom"):
+               surface_threshold=30.0, probe_radius=1.4, nproc=32, residue_list_file=None, module_type="all_atom", verbose=True):
     log_file = wd + "/log.txt"
 
-    print("Starting\n", flush=True)
+    if verbose: print("Starting\n", flush=True)
     log(log_file, "Started main_glyco")
 
     e_msg = ""
@@ -326,9 +324,9 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
     ############################################
 
     out_file = os.path.basename(file_name).replace(".pdb", "")
-    print(out_file, flush=True)
+    if verbose:print(out_file, flush=True)
 
-    print("Using a pool with {} cpus.".format(nproc), flush=True)
+    if verbose:print("Using a pool with {} cpus.".format(nproc), flush=True)
     bundle_num = nproc * 2
 
     # Renumber glycan seqNum from 1 to n on each chain
@@ -339,19 +337,19 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
 
     # Get surface residues from RSA
     if module_type == "all_atom":
-        print("Calculating surface residues.", flush=True)
+        if verbose: print("Calculating surface residues.", flush=True)
         log(log_file, "Calculating surface residues.")
         surface_set, ABS_data = get_surface_keys(file_name, wd, out_file, fresasa_path, surface_threshold,
-                                                 protein_types, probe_radius)
+                                                 protein_types, probe_radius, verbose)
 
         if len(surface_set) == 0:
             return None, None, "Surface set is empty"
 
     elif module_type == "subset":
         log(log_file, "Getting subset")
-        print("Module sub")
+        if verbose: print("Module sub")
         path_sub = residue_list_file
-        print(path_sub)
+        if verbose: print(path_sub)
         surface_set = get_subset(path_sub, protein_types)
         ABS_data = {}
 
@@ -364,17 +362,17 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
 
     # # Get atomic data for glycan, protein # #
 
-    print("\nExtracting glycan atoms.", flush=True)
+    if verbose: print("\nExtracting glycan atoms.", flush=True)
     log(log_file, "Extracting glycan atoms.")
-    print("glycan_types", glycan_types)
+    if verbose: print("glycan_types", glycan_types)
     glycan_data_list = get_atoms_data(file_name, type_names=glycan_types, surface_set=None)
 
-    print("\nExtracting protein atoms.", flush=True)
+    if verbose: print("\nExtracting protein atoms.", flush=True)
     log(log_file, "Extracting protein atoms.")
     protein_data_list = get_atoms_data(file_name, type_names=protein_types, surface_set=surface_set)
 
-    print("\nFound {} glycan heavy atoms.".format(len(glycan_data_list)), flush=True)
-    print("Found {} protein heavy atoms with RSA > {}.".format(len(protein_data_list), surface_threshold), flush=True)
+    if verbose: print("\nFound {} glycan heavy atoms.".format(len(glycan_data_list)), flush=True)
+    if verbose: print("Found {} protein heavy atoms with RSA > {}.".format(len(protein_data_list), surface_threshold), flush=True)
 
     log(log_file, "Found {} glycan heavy atoms.".format(len(glycan_data_list)))
     log(log_file, "Found {} protein heavy atoms.".format(len(protein_data_list)))
@@ -383,7 +381,7 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
     log(log_file, "Extracting collision atoms.")
     protein_collision_data_list = get_atoms_data(file_name, type_names=protein_types, surface_set=None)
 
-    print("\nExtracted collision atoms.", flush=True)
+    if verbose: print("\nExtracted collision atoms.", flush=True)
 
     if len(glycan_data_list) == 0:
         return None, None, "No protein atoms were found."
@@ -395,12 +393,12 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
     log(log_file, "Building kd tree.")
     all_coords = np.stack(protein_collision_data_list[:, 0]).astype(dtype=np.float64)
 
-    print("\nBuilt coordinate matrix.", flush=True)
+    if verbose: print("\nBuilt coordinate matrix.", flush=True)
 
     # Add coordinates to KD-Tree for fast radius queries in 3D space
     tree = KDTree(all_coords, leaf_size=3)
 
-    print("\nBuilt kd-tree.", flush=True)
+    if verbose: print("\nBuilt kd-tree.", flush=True)
 
     # # Preprocess data to send to multiple CPUs # #
 
@@ -419,7 +417,8 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
     bundle_outter_data = np.array_split(outter_data, bundle_num, axis=0)
 
     set_ = "Glycan" if glycan_out else "Protein"
-    print("Each bundle has {} atoms from set={} to calculate. There are {} bundles.".format(
+    if verbose:
+        print("Each bundle has {} atoms from set={} to calculate. There are {} bundles.".format(
         bundle_outter_data[0].shape[0], set_, bundle_num), flush=True)
 
     # Store results
@@ -446,7 +445,7 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
         all_results[job_id] = res
 
         # Close and join pool, waits for all jobs to be added to queue on main thread
-    print("Added all jobs to queue.\n", flush=True)
+    if verbose: print("Added all jobs to queue.\n", flush=True)
     log(log_file, "Added all jobs to queue")
     tp.close()
     log(log_file, "Closed pool.")
@@ -455,7 +454,7 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
 
     # Process all results from processes, make dataframes and final result files
     log(log_file, "Processing dataframes.")
-    df_res_counts, duplicate_sum, non_duplicate_sum = process_dataframes(all_results, ABS_data)
+    df_res_counts, duplicate_sum, non_duplicate_sum = process_dataframes(all_results, ABS_data, verbose)
 
     # Cleanup
     if os.path.isfile(file_name):
@@ -463,7 +462,7 @@ def main_glyco(file_name, wd, fresasa_path, protein_types=None, glycan_types=Non
 
     end_time = time.perf_counter()
     log(log_file, "Done calculating. Time={} min.".format(round((end_time - start_time) / 60, 2)))
-    print("Done. Execution time=", (end_time - start_time) / 3600, "hours.", flush=True)
+    print("Finished {}. Execution time=".format(file_name), round((end_time - start_time) / 60, 2), "minutes.", flush=True)
 
     return df_res_counts, duplicate_sum, non_duplicate_sum, struct, e_msg
 

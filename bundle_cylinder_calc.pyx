@@ -52,7 +52,7 @@ def c_worker( np.uint32_t job_id,
 
     cdef np.float32_t vec_norm
 
-    print("Job id={} starting.".format(job_id))
+    # print("Job id={} starting.".format(job_id))
 
     res_dict = defaultdict(list)
 
