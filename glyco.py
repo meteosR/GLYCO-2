@@ -19,7 +19,7 @@ from natsort import natsort_keygen
 # how to run:
 # python3 glyco.py -pdb glyco_examples/1_ebola_man5_frame_10__BGLN_BMAN_AMAN__23.pdb -cutoff 23 -glycans BGLN,BMAN,AMAN -out_folder 1_ebola_man5_frame_10 -ncpu 12 -module all_atom
 # python3 glyco.py -pdb glyco_examples/2_ha_man5_frame_10__BGL_BMA_AMA__23.pdb -cutoff 23 -glycans BGL,BMA,AMA -out_folder 2_ha_man5_frame_10__BGL_BMA_AMA__23 -ncpu 12 -module all_atom
-# python3 glyco.py -in_folder /afs/csail.mit.edu/u/m/mreveiz/data_mnt_rgb/glyco/GLYCO-2/glyco_examples/small_md -cutoff 23 -sur_cutoff 70  -glycans BGL,BMA,AMA -out_folder debug -ncpu 16 -nproc_out 2 -module all_atom -average
+# python3 glyco.py -in_folder /afs/csail.mit.edu/u/m/mreveiz/data_mnt_rgb/glyco/GLYCO-2/glyco_examples/small_md -cutoff 23 -sur_cutoff 70  -glycans BGL,BMA,AMA -out_folder debug -ncpu 16 -npar 2 -module all_atom -average
 
 
 parser = argparse.ArgumentParser()
@@ -37,7 +37,7 @@ parser.add_argument('-freesasa', type=str, help='Enter your path of Freesasa exe
                     default="dependencies/freesasa")
 parser.add_argument('-ncpu', type=int, help='Enter the number of workers to use for the computation ex) 9',
                     default=min(multiprocessing.cpu_count(), 8))
-parser.add_argument('-nproc_out', type=int, help='Enter the number of parallel PDBs to process) 1',
+parser.add_argument('-npar', type=int, help='Enter the number of parallel PDBs to process) 1',
                     default=1)
 parser.add_argument('-sur_cutoff', type=float, help='Enter surface area cutoff of FreeSASA in Angstrom^2. ex) 40',
                     default=30)
@@ -69,7 +69,7 @@ submission_data["cylinder_radius"] = float(args.cyl_radius)
 submission_data["surface_threshold"] = float(args.sur_cutoff)
 submission_data["protein_alphabet"] = protein_alphabet
 submission_data["probe_radius"] = float(args.probe_radius)
-submission_data["nproc_out"] = int(args.nproc_out)
+submission_data["npar"] = int(args.npar)
 submission_data["verbose"] = verbose = args.verbose
 fresasa_path = args.freesasa
 nproc = args.ncpu
@@ -149,8 +149,8 @@ def main():
         # Multiple pdbs
 
         # Create pool
-        nproc_out = submission_data["nproc_out"]
-        OUTER_POOL = Pool_out(nproc_out)
+        npar = submission_data["npar"]
+        OUTER_POOL = Pool_out(npar)
 
         # Submit all jobs
         for input_file in pdb_files:
