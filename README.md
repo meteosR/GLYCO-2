@@ -22,7 +22,7 @@
 
     * ##### How can I glycosylate proteins? 
     You can build glycans on your protein with other servers/programs such as [CHARMM-GUI Glycan Reader & Modeler](https://charmm-gui.org/?doc=input/glycan) or [Glycosylator](https://github.com/tlemmin/glycosylator) etc. GLYCO-2 does not build glycans.<br /><br />
-        2) Install FreeSASA(https://freesasa.github.io/) <br /><br />
+        2) FreeSASA(https://freesasa.github.io/) - You can use FreeSASA executable in Dependencies folder, or download it by yourself<br /><br />
         3) Arguments to enter <br /><br />
 ![diagram](https://github.com/meteosR/GLYCO-2/assets/32939217/19628413-a6da-4a49-bb59-917a2854cc2d)
 
